@@ -6,8 +6,10 @@ package tempretureConventer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class TempretureConventer extends JFrame {
+public class TempretureConventer extends JFrame  {
     // Components :
     JLabel celsiusLabel;
     JTextField celsuisTextfield;
@@ -23,7 +25,9 @@ public class TempretureConventer extends JFrame {
         celsuisTextfield= new JTextField();
         buttonGroup=new ButtonGroup();
         fahrenheitRadioBtn=new JRadioButton();
+        fahrenheitRadioBtn.setActionCommand("f");
         kelvinRadioBtn=new JRadioButton();
+        kelvinRadioBtn.setActionCommand("k");
         resultTempraturer=new JLabel();
         buttonGroupPanel=new JPanel();
         //Basic properities
@@ -40,15 +44,30 @@ public class TempretureConventer extends JFrame {
         add(celsuisTextfield);
 
         fahrenheitRadioBtn.setText("Fahrenhit");
+        add(resultTempraturer);
+
+        fahrenheitRadioBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                double num=Integer.parseInt(celsuisTextfield.getText());
+                resultTempraturer.setText("New temperature in is"+String.valueOf((num*9/5+32)));
+
+            }
+        });
         kelvinRadioBtn.setText("Kelvin");
+        kelvinRadioBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                double num=Integer.parseInt(celsuisTextfield.getText());
+                resultTempraturer.setText("New temperature in is"+String.valueOf((num+273.15)));
+            }
+        });
         buttonGroup.add(fahrenheitRadioBtn);
         buttonGroup.add(kelvinRadioBtn);
         buttonGroupPanel.add(fahrenheitRadioBtn);
         buttonGroupPanel.add(kelvinRadioBtn);
         add(buttonGroupPanel);
 
-
-        
         setVisible(true);
 
     }
@@ -57,4 +76,6 @@ public class TempretureConventer extends JFrame {
     public static void main(String[] args) {
         TempretureConventer tempretureConventer=new TempretureConventer();
     }
+
+
 }
