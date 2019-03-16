@@ -15,6 +15,8 @@ public class TempretureConventer extends JFrame {
     JRadioButton fahrenheitRadioBtn;
     JRadioButton kelvinRadioBtn;
     JLabel resultTempraturer;
+    JPanel buttonGroupPanel; // To group radio buttons together
+
 
     public TempretureConventer(){
         celsiusLabel=new JLabel();
@@ -23,18 +25,30 @@ public class TempretureConventer extends JFrame {
         fahrenheitRadioBtn=new JRadioButton();
         kelvinRadioBtn=new JRadioButton();
         resultTempraturer=new JLabel();
-
+        buttonGroupPanel=new JPanel();
         //Basic properities
 
-        setLayout(new GridLayout(4,1));//4row,1col
+        setLayout(new FlowLayout());
         setTitle("Temperature conventer");
         setResizable(true);
         setLocationRelativeTo(null); // To show the output in the middle of screen
-        setSize(500,250);
+        setSize(350,250);
+
+        celsiusLabel.setText("Enter Celsius temperature:");
+        add(celsiusLabel);
+        celsuisTextfield.setPreferredSize(new Dimension(200,20));
+        add(celsuisTextfield);
+
+        fahrenheitRadioBtn.setText("Fahrenhit");
+        kelvinRadioBtn.setText("Kelvin");
+        buttonGroup.add(fahrenheitRadioBtn);
+        buttonGroup.add(kelvinRadioBtn);
+        buttonGroupPanel.add(fahrenheitRadioBtn);
+        buttonGroupPanel.add(kelvinRadioBtn);
+        add(buttonGroupPanel);
 
 
-
-
+        
         setVisible(true);
 
     }
