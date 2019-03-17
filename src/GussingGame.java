@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class GussingGame extends JFrame{
 
@@ -9,18 +10,23 @@ public class GussingGame extends JFrame{
     JButton newGameBtn;
 
     public GussingGame(){
+        setLayout(new FlowLayout());
         setTitle("Gussing Game");
         setLocationRelativeTo(null);
         setSize(300,150);
+        setResizable(false);
 
-        rangeNumLabel=new JLabel();
-        guessLabel=new JLabel();
-        resultNum=new JLabel();
-
+        rangeNumLabel=new JLabel("I have a number between 1 and 1000");
+        guessLabel=new JLabel("Can you guess my number?");
+        resultNum=new JLabel("Too high try a lower number");
         numTxtField=new JTextField();
-        newGameBtn=new JButton();
-        
-
+        numTxtField.setPreferredSize(new Dimension(50,20));
+        newGameBtn=new JButton("New Gmae");
+        add(rangeNumLabel);
+        add(guessLabel);
+        add(resultNum);
+        add(numTxtField);
+        add(newGameBtn);
 
 
 
@@ -30,6 +36,7 @@ public class GussingGame extends JFrame{
 
 
     public static void main(String[] args) {
+        GussingGame gussingGame=new GussingGame();
 
     }
 }
