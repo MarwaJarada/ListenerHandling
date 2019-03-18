@@ -1,11 +1,14 @@
 package fileProcessing;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class FileProcessing extends JFrame{
     JMenuBar mainMenu;
     JMenu fileMenu;
     JMenu editMenu;
+    JScrollPane scrollPan;
+    JTextArea fileTxt;
 
     public FileProcessing(){
 
@@ -29,9 +32,10 @@ public class FileProcessing extends JFrame{
         mainMenu.add(fileMenu);
         mainMenu.add(editMenu);
         this.setJMenuBar(mainMenu);
-
-        
-
+        fileTxt=new JTextArea();
+        scrollPan= new JScrollPane(fileTxt);
+        scrollPan.setPreferredSize(new Dimension(400,250));
+        this.add(scrollPan);
         setVisible(true);
 
     }
