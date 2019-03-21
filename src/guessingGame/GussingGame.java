@@ -8,8 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
-import static java.lang.Integer.parseInt;
-import static java.lang.Integer.valueOf;
+/**
+ * @author Marwa N. Jarada
+ */
 
 public class GussingGame extends JFrame implements ActionListener{
 
