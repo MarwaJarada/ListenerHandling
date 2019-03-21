@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class FileProcessing extends JFrame{
     JMenuBar mainMenu;
@@ -17,6 +22,8 @@ public class FileProcessing extends JFrame{
     JScrollPane scrollPan;
     JTextArea fileTxt;
     JFileChooser fileChooser;
+    Color colorChooser;
+    String fontSizeSelected;
 
     public FileProcessing(){
 
@@ -41,12 +48,13 @@ public class FileProcessing extends JFrame{
         color=new JMenuItem("Color");
         color.addActionListener(actionListener);
 
-        fileMenu.add("Open");
-        fileMenu.add("Close");
+
+        fileMenu.add(open);
+        fileMenu.add(close);
         fileMenu.add(exit);
 
-        editMenu.add("Font");
-        editMenu.add("Color");
+        editMenu.add(font);
+        editMenu.add(color);
         mainMenu.add(fileMenu);
         mainMenu.add(editMenu);
         this.setJMenuBar(mainMenu);
@@ -63,6 +71,7 @@ public class FileProcessing extends JFrame{
 
     public static void main(String[] args) {
         FileProcessing fileProcessing=new FileProcessing();
+
     }
 
     ActionListener actionListener=new ActionListener() {
@@ -72,16 +81,46 @@ public class FileProcessing extends JFrame{
             String action = actionEvent.getActionCommand().toLowerCase();
             switch (action){
                 case "open":
+                     fileChooser = new JFileChooser();
+                     fileChooser.showDialog(FileProcessing.this,"Select");
+                    File selectedFile = fileChooser.getSelectedFile();
+                    String content = selectedFile.toString();
+                    fileTxt.setText(content);
+
+                    try {
+                        Scanner scanner = new Scanner(selectedFile);
+                        fileTxt.setText(scanner.toString());
+                        fileTxt.setEditable(true);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
                     break;
                 case "exit":
+                    System.exit(0);
                     break;
                 case "close":
+                    fileTxt.setText(null);
+                    fileTxt.setEditable(false);
                     break;
                 case "font":
+                    showFontDailog();
                     break;
                 case "color":
+
+
                     break;
             }
         }
     };
+
+
+    public void showFontDailog(){
+        int fontSize= (int)JOptionPane.showInputDialog(null,"Select font size","Fonr size",JOptionPane.OK_CANCEL_OPTION,
+                null,
+                new Integer[]{12,14,16,18},
+                15);
+        fileTxt.setFont(new Font("Tahoma",0,fontSize));
+
+}
 }

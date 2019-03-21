@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Random;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.Integer.valueOf;
 
 public class GussingGame extends JFrame implements ActionListener{
@@ -19,23 +20,24 @@ public class GussingGame extends JFrame implements ActionListener{
     JButton newGameBtn;
 
     public GussingGame(){
+        final int[] num = {generateRandonNum()};
         setLayout(new FlowLayout());
         setTitle("Gussing Game");
         setLocationRelativeTo(null);
         setSize(300,150);
         setResizable(false);
-        int randomNumber = generateRandonNum();
         rangeNumLabel=new JLabel("I have a number between 1 and 1000");
         guessLabel=new JLabel("Can you guess my number?");
         resultNum=new JLabel("Here is your input  number");
         numTxtField=new JTextField();
         numTxtField.setPreferredSize(new Dimension(50,20));
+        this.getContentPane().setBackground(new Color(250,250,50));
+
         numTxtField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent keyEvent) {
 
-           }
-
+            }
             @Override
             public void keyPressed(KeyEvent keyEvent) {
 
@@ -43,10 +45,30 @@ public class GussingGame extends JFrame implements ActionListener{
 
             @Override
             public void keyReleased(KeyEvent keyEvent) {
-
+                System.out.println(num[0]);
+                if(Integer.valueOf(numTxtField.getText())> num[0]){
+                    GussingGame.this.getContentPane().setBackground(Color.RED);
+                    resultNum.setText("Your input number is Too high");
+                }else if (Integer.valueOf(numTxtField.getText())< num[0]){
+                    GussingGame.this.getContentPane().setBackground(Color.BLUE);
+                    resultNum.setText("Your input number is Too low");
+                }else {
+                    GussingGame.this.getContentPane().setBackground(Color.YELLOW);
+                    numTxtField.setEditable(false);
+                    resultNum.setText("Your input Number is RIGHT");
+                }
             }
         });
-        newGameBtn=new JButton("New Gmae");
+        newGameBtn=new JButton("New Game");
+        newGameBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                numTxtField.setEditable(true);
+                resultNum.setText("Here is your input  number :");
+                num[0] =generateRandonNum();
+                numTxtField.setText(null);
+            }
+        });
         add(rangeNumLabel);
         add(guessLabel);
         add(resultNum);
