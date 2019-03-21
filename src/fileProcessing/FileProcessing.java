@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * @author Marwa N. Jarada
+ */
 public class FileProcessing extends JFrame{
     JMenuBar mainMenu;
     JMenu fileMenu;
@@ -81,20 +84,7 @@ public class FileProcessing extends JFrame{
             String action = actionEvent.getActionCommand().toLowerCase();
             switch (action){
                 case "open":
-                     fileChooser = new JFileChooser();
-                     fileChooser.showDialog(FileProcessing.this,"Select");
-                    File selectedFile = fileChooser.getSelectedFile();
-                    String content = selectedFile.toString();
-                    fileTxt.setText(content);
-
-                    try {
-                        Scanner scanner = new Scanner(selectedFile);
-                        fileTxt.setText(scanner.toString());
-                        fileTxt.setEditable(true);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-
+                    openFileChooser();
                     break;
                 case "exit":
                     System.exit(0);
@@ -123,4 +113,21 @@ public class FileProcessing extends JFrame{
         fileTxt.setFont(new Font("Tahoma",0,fontSize));
 
 }
+
+    public void  openFileChooser(){
+        fileChooser = new JFileChooser();
+        fileChooser.showDialog(FileProcessing.this,"Select");
+        String selectedFile = fileChooser.getSelectedFile().getName();
+        String content = selectedFile;
+        fileTxt.setText(content);
+
+        try {
+            if (fileTxt.getText()!=null){
+            Scanner scanner = new Scanner(selectedFile);
+            fileTxt.setText(scanner.toString());
+            fileTxt.setEditable(true);}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

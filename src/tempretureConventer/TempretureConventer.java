@@ -1,14 +1,14 @@
 
 package tempretureConventer;
-/**
- * @author Marwa N. Jarada
- */
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Marwa N. Jarada
+ */
 public class TempretureConventer extends JFrame  {
     // Components :
     JLabel celsiusLabel;
