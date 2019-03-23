@@ -1,4 +1,3 @@
-
 package multipleSelection;
 
 import javax.swing.*;
