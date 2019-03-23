@@ -2,10 +2,7 @@ package fileProcessing;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -50,6 +47,12 @@ public class FileProcessing extends JFrame{
         font.addActionListener(actionListener);
         color=new JMenuItem("Color");
         color.addActionListener(actionListener);
+
+
+        open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+        close.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+        exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK));
+        font.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
 
 
         fileMenu.add(open);
@@ -98,7 +101,10 @@ public class FileProcessing extends JFrame{
                     break;
                 case "color":
 
-
+                    colorChooser = JColorChooser.showDialog(FileProcessing.this,
+                            "Choose Font color :",
+                            Color.YELLOW);
+                    fileTxt.setForeground(colorChooser);
                     break;
             }
         }
@@ -112,22 +118,25 @@ public class FileProcessing extends JFrame{
                 15);
         fileTxt.setFont(new Font("Tahoma",0,fontSize));
 
-}
+    }
 
-    public void  openFileChooser(){
+    public void  openFileChooser() {
         fileChooser = new JFileChooser();
-        fileChooser.showDialog(FileProcessing.this,"Select");
-        String selectedFile = fileChooser.getSelectedFile().getName();
-        String content = selectedFile;
-        fileTxt.setText(content);
-
+        fileChooser.showDialog(FileProcessing.this, "Select");
         try {
-            if (fileTxt.getText()!=null){
+            File selectedFile = fileChooser.getSelectedFile();
             Scanner scanner = new Scanner(selectedFile);
-            fileTxt.setText(scanner.toString());
-            fileTxt.setEditable(true);}
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (scanner.hasNext()){
+                fileTxt.append(scanner.nextLine());
+
+
+            }
+            fileTxt.setEditable(true);
+        }catch (Exception e) {
+            System.out.println("Empty File");
         }
+
+
+
     }
 }
