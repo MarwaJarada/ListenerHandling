@@ -98,7 +98,10 @@ public class FileProcessing extends JFrame{
                     break;
                 case "color":
 
-
+                    colorChooser = JColorChooser.showDialog(FileProcessing.this,
+                            "Choose Font color :",
+                            Color.YELLOW);
+                    fileTxt.setForeground(colorChooser);
                     break;
             }
         }
@@ -114,20 +117,23 @@ public class FileProcessing extends JFrame{
 
 }
 
-    public void  openFileChooser(){
+    public void  openFileChooser() {
         fileChooser = new JFileChooser();
-        fileChooser.showDialog(FileProcessing.this,"Select");
-        String selectedFile = fileChooser.getSelectedFile().getName();
-        String content = selectedFile;
-        fileTxt.setText(content);
-
+        fileChooser.showDialog(FileProcessing.this, "Select");
+        File selectedFile = fileChooser.getSelectedFile();
         try {
-            if (fileTxt.getText()!=null){
             Scanner scanner = new Scanner(selectedFile);
-            fileTxt.setText(scanner.toString());
-            fileTxt.setEditable(true);}
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (scanner.hasNext()){
+                fileTxt.append(scanner.nextLine());
+
+
+            }
+            fileTxt.setEditable(true);
+        }catch (FileNotFoundException e) {
         }
+
+
+
     }
-}
+    }
+
